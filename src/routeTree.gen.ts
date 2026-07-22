@@ -14,6 +14,15 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardUploadRouteImport } from './routes/dashboard.upload'
+import { Route as DashboardSettingsRouteImport } from './routes/dashboard.settings'
+import { Route as DashboardReportsRouteImport } from './routes/dashboard.reports'
+import { Route as DashboardProfileRouteImport } from './routes/dashboard.profile'
+import { Route as DashboardPrescriptionRouteImport } from './routes/dashboard.prescription'
+import { Route as DashboardLibraryRouteImport } from './routes/dashboard.library'
+import { Route as DashboardImageRouteImport } from './routes/dashboard.image'
+import { Route as DashboardChatRouteImport } from './routes/dashboard.chat'
+import { Route as DashboardAnalysisRouteImport } from './routes/dashboard.analysis'
 
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
@@ -40,18 +49,81 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardUploadRoute = DashboardUploadRouteImport.update({
+  id: '/upload',
+  path: '/upload',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardReportsRoute = DashboardReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardProfileRoute = DashboardProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardPrescriptionRoute = DashboardPrescriptionRouteImport.update({
+  id: '/prescription',
+  path: '/prescription',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardLibraryRoute = DashboardLibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardImageRoute = DashboardImageRouteImport.update({
+  id: '/image',
+  path: '/image',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardChatRoute = DashboardChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardAnalysisRoute = DashboardAnalysisRouteImport.update({
+  id: '/analysis',
+  path: '/analysis',
+  getParentRoute: () => DashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/dashboard/analysis': typeof DashboardAnalysisRoute
+  '/dashboard/chat': typeof DashboardChatRoute
+  '/dashboard/image': typeof DashboardImageRoute
+  '/dashboard/library': typeof DashboardLibraryRoute
+  '/dashboard/prescription': typeof DashboardPrescriptionRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/upload': typeof DashboardUploadRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/dashboard/analysis': typeof DashboardAnalysisRoute
+  '/dashboard/chat': typeof DashboardChatRoute
+  '/dashboard/image': typeof DashboardImageRoute
+  '/dashboard/library': typeof DashboardLibraryRoute
+  '/dashboard/prescription': typeof DashboardPrescriptionRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/upload': typeof DashboardUploadRoute
   '/dashboard': typeof DashboardIndexRoute
 }
 export interface FileRoutesById {
@@ -60,14 +132,65 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/dashboard/analysis': typeof DashboardAnalysisRoute
+  '/dashboard/chat': typeof DashboardChatRoute
+  '/dashboard/image': typeof DashboardImageRoute
+  '/dashboard/library': typeof DashboardLibraryRoute
+  '/dashboard/prescription': typeof DashboardPrescriptionRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/upload': typeof DashboardUploadRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/login' | '/register' | '/dashboard/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/login'
+    | '/register'
+    | '/dashboard/analysis'
+    | '/dashboard/chat'
+    | '/dashboard/image'
+    | '/dashboard/library'
+    | '/dashboard/prescription'
+    | '/dashboard/profile'
+    | '/dashboard/reports'
+    | '/dashboard/settings'
+    | '/dashboard/upload'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/register' | '/dashboard'
-  id: '__root__' | '/' | '/dashboard' | '/login' | '/register' | '/dashboard/'
+  to:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/dashboard/analysis'
+    | '/dashboard/chat'
+    | '/dashboard/image'
+    | '/dashboard/library'
+    | '/dashboard/prescription'
+    | '/dashboard/profile'
+    | '/dashboard/reports'
+    | '/dashboard/settings'
+    | '/dashboard/upload'
+    | '/dashboard'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/login'
+    | '/register'
+    | '/dashboard/analysis'
+    | '/dashboard/chat'
+    | '/dashboard/image'
+    | '/dashboard/library'
+    | '/dashboard/prescription'
+    | '/dashboard/profile'
+    | '/dashboard/reports'
+    | '/dashboard/settings'
+    | '/dashboard/upload'
+    | '/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -114,14 +237,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/upload': {
+      id: '/dashboard/upload'
+      path: '/upload'
+      fullPath: '/dashboard/upload'
+      preLoaderRoute: typeof DashboardUploadRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/reports': {
+      id: '/dashboard/reports'
+      path: '/reports'
+      fullPath: '/dashboard/reports'
+      preLoaderRoute: typeof DashboardReportsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/profile': {
+      id: '/dashboard/profile'
+      path: '/profile'
+      fullPath: '/dashboard/profile'
+      preLoaderRoute: typeof DashboardProfileRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/prescription': {
+      id: '/dashboard/prescription'
+      path: '/prescription'
+      fullPath: '/dashboard/prescription'
+      preLoaderRoute: typeof DashboardPrescriptionRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/library': {
+      id: '/dashboard/library'
+      path: '/library'
+      fullPath: '/dashboard/library'
+      preLoaderRoute: typeof DashboardLibraryRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/image': {
+      id: '/dashboard/image'
+      path: '/image'
+      fullPath: '/dashboard/image'
+      preLoaderRoute: typeof DashboardImageRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/chat': {
+      id: '/dashboard/chat'
+      path: '/chat'
+      fullPath: '/dashboard/chat'
+      preLoaderRoute: typeof DashboardChatRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/analysis': {
+      id: '/dashboard/analysis'
+      path: '/analysis'
+      fullPath: '/dashboard/analysis'
+      preLoaderRoute: typeof DashboardAnalysisRouteImport
+      parentRoute: typeof DashboardRoute
+    }
   }
 }
 
 interface DashboardRouteChildren {
+  DashboardAnalysisRoute: typeof DashboardAnalysisRoute
+  DashboardChatRoute: typeof DashboardChatRoute
+  DashboardImageRoute: typeof DashboardImageRoute
+  DashboardLibraryRoute: typeof DashboardLibraryRoute
+  DashboardPrescriptionRoute: typeof DashboardPrescriptionRoute
+  DashboardProfileRoute: typeof DashboardProfileRoute
+  DashboardReportsRoute: typeof DashboardReportsRoute
+  DashboardSettingsRoute: typeof DashboardSettingsRoute
+  DashboardUploadRoute: typeof DashboardUploadRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardAnalysisRoute: DashboardAnalysisRoute,
+  DashboardChatRoute: DashboardChatRoute,
+  DashboardImageRoute: DashboardImageRoute,
+  DashboardLibraryRoute: DashboardLibraryRoute,
+  DashboardPrescriptionRoute: DashboardPrescriptionRoute,
+  DashboardProfileRoute: DashboardProfileRoute,
+  DashboardReportsRoute: DashboardReportsRoute,
+  DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardUploadRoute: DashboardUploadRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 
