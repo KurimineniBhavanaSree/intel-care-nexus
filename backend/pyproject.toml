@@ -1,0 +1,67 @@
+[tool.poetry]
+name = "medintel-backend"
+version = "1.0.0"
+description = "MedIntel - Explainable Multimodal Healthcare Assistant Backend"
+authors = ["Your Team <team@medintel.io>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.104.1"
+uvicorn = "^0.24.0"
+sqlalchemy = "^2.0.23"
+psycopg2-binary = "^2.9.9"
+pydantic = "^2.5.0"
+pydantic-settings = "^2.1.0"
+python-jose = "^3.3.0"
+passlib = "^1.7.4"
+bcrypt = "^4.1.1"
+python-multipart = "^0.0.6"
+aiofiles = "^23.2.1"
+python-dotenv = "^1.0.0"
+alembic = "^1.12.1"
+PyJWT = "^2.8.1"
+email-validator = "^2.1.0"
+langchain = "^0.1.4"
+langchain-community = "^0.0.10"
+langchain-openai = "^0.0.5"
+openai = "^1.3.8"
+chromadb = "^0.4.17"
+sentence-transformers = "^2.2.2"
+PyPDF2 = "^3.0.1"
+python-docx = "^0.8.11"
+Pillow = "^10.1.0"
+pytesseract = "^0.3.10"
+numpy = "^1.26.2"
+pandas = "^2.1.3"
+requests = "^2.31.0"
+click = "^8.1.7"
+tensorflow = "^2.20.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+pytest-asyncio = "^0.21.1"
+httpx = "^0.25.2"
+black = "^23.11.0"
+ruff = "^0.1.7"
+mypy = "^1.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true

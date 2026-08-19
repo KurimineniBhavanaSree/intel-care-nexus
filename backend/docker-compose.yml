@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: medintel_user
+      POSTGRES_PASSWORD: medintel_password
+      POSTGRES_DB: medintel_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U medintel_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  medintel_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: medintel-api
+    environment:
+      DATABASE_URL: postgresql://medintel_user:medintel_password@postgres:5432/medintel_db
+      SECRET_KEY: your-super-secret-key-change-in-production
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      APP_ENV: development
+      APP_DEBUG: "true"
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./app:/app/app
+      - ./uploads:/app/app/uploads
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@medintel.io
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+
+networks:
+  default:
+    name: medintel-network
