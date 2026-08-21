@@ -245,6 +245,8 @@ class ChatMessageCreate(BaseModel):
     """Schema for creating chat message."""
     content: str
     session_id: Optional[str] = None
+    report_id: Optional[int] = None
+    image_id: Optional[int] = None
 
 
 class ChatMessageResponse(BaseModel):
@@ -263,6 +265,7 @@ class ChatResponse(BaseModel):
     """Schema for chat response."""
     message: ChatMessageResponse
     citations: Optional[List[Citation]]
+    follow_up_questions: Optional[List[str]] = None
 
 
 # ============= Prescription Schemas =============

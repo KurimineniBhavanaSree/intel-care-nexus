@@ -5,6 +5,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import StatusBadge from "@/components/StatusBadge";
 import { authService, type User } from "@/services/authService";
 import { reportService, type MedicalReport } from "@/services/reportService";
+import { chatService } from "@/services/chatService";
 
 export const Route = createFileRoute("/dashboard/")({
   head: () => ({
@@ -24,6 +25,8 @@ function DashboardHome() {
   const [user, setUser] = useState<User | null>(null);
   const [reports, setReports] = useState<MedicalReport[]>([]);
   const [loadingReports, setLoadingReports] = useState(true);
+  const [chatCount, setChatCount] = useState<number>(0);
+  const [loadingChatCount, setLoadingChatCount] = useState(true);
 
   useEffect(() => {
     let active = true;
@@ -48,6 +51,18 @@ function DashboardHome() {
         if (active) setLoadingReports(false);
       });
 
+    chatService
+      .getCount()
+      .then((data) => {
+        if (active) setChatCount(data.count);
+      })
+      .catch(() => {
+        if (active) setChatCount(0);
+      })
+      .finally(() => {
+        if (active) setLoadingChatCount(false);
+      });
+
     return () => {
       active = false;
     };
@@ -56,11 +71,11 @@ function DashboardHome() {
   const stats = useMemo(
     () => [
       { label: "Reports Uploaded", value: reports.length, delta: "Live", tone: "primary" as const },
-      { label: "AI Chats", value: 0, delta: "Connected", tone: "accent" as const },
+      { label: "AI Chats", value: chatCount, delta: "Live", tone: "accent" as const },
       { label: "Medical Images", value: 0, delta: "Connected", tone: "primary" as const },
       { label: "Saved Reports", value: reports.filter((report) => report.status === "analyzed").length, delta: "Live", tone: "accent" as const },
     ],
-    [reports],
+    [reports, chatCount],
   );
 
   return (
